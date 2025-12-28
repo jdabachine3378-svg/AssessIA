@@ -219,4 +219,3 @@ After successful startup:
 For issues:
 1. Check logs in `./logs/` directory
 2. Review the troubleshooting section in README.md
-3. Contact the development team
