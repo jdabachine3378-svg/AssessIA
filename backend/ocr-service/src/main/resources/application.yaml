@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: ocr-service
+
+  rabbitmq:
+    host: localhost
+    port: 5673
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 60000
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-interval: 10000
+        multiplier: 2
+        max-attempts: 5
+    listener:
+      simple:
+        acknowledge-mode: auto
+        concurrency: 5
+        max-concurrency: 10
+        prefetch: 1
+        default-requeue-rejected: false
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-interval: 10000
+          multiplier: 2
+          max-attempts: 5
+        auto-startup: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# Configuration RabbitMQ (custom)
+rabbitmq:
+  exchange:
+    name: assessai.exchange
+  queue:
+    ocr:
+      request: assessai.ocr.request
+      response: assessai.ocr.response
+  routing:
+    key:
+      ocr:
+        request: ocr.request
+        response: ocr.response
+
+# Configuration Tesseract OCR
+tesseract:
+  data:
+    path:
+  default-language: fra
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    com.assessai: DEBUG
+    org.springframework.amqp: WARN
+    org.springframework.amqp.rabbit: WARN
+    root: INFO

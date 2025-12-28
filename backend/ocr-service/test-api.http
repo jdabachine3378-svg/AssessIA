@@ -1,0 +1,36 @@
+### Test Health Check
+GET http://localhost:8082/api/ocr/health
+
+### Test OCR avec Base64 (remplacer avec votre image Base64)
+POST http://localhost:8082/api/ocr/process
+Content-Type: application/json
+
+{
+  "imageBase64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+  "language": "fra"
+}
+
+### Test OCR avec URL
+POST http://localhost:8082/api/ocr/process
+Content-Type: application/json
+
+{
+  "imageUrl": "https://example.com/image.png",
+  "language": "fra"
+}
+
+### Test OCR avec upload (utiliser un client REST comme Postman ou IntelliJ HTTP Client)
+POST http://localhost:8082/api/ocr/process/upload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="test.png"
+Content-Type: image/png
+
+< ./test-image.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="language"
+
+fra
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+

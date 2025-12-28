@@ -1,0 +1,71 @@
+{
+  "templateName": "Template de correction par défaut",
+  "sections": [
+    {
+      "sectionName": "Introduction",
+      "maxPoints": 2.0,
+      "criteria": [
+        {
+          "criterion": "Présence d'une introduction",
+          "points": 1.0
+        },
+        {
+          "criterion": "Clarté de l'introduction",
+          "points": 1.0
+        }
+      ]
+    },
+    {
+      "sectionName": "Développement",
+      "maxPoints": 12.0,
+      "criteria": [
+        {
+          "criterion": "Longueur et complétude",
+          "points": 4.0
+        },
+        {
+          "criterion": "Structure et organisation",
+          "points": 4.0
+        },
+        {
+          "criterion": "Qualité du contenu",
+          "points": 4.0
+        }
+      ]
+    },
+    {
+      "sectionName": "Conclusion",
+      "maxPoints": 2.0,
+      "criteria": [
+        {
+          "criterion": "Présence d'une conclusion",
+          "points": 1.0
+        },
+        {
+          "criterion": "Pertinence de la conclusion",
+          "points": 1.0
+        }
+      ]
+    },
+    {
+      "sectionName": "Forme",
+      "maxPoints": 4.0,
+      "criteria": [
+        {
+          "criterion": "Orthographe et grammaire",
+          "points": 2.0
+        },
+        {
+          "criterion": "Ponctuation",
+          "points": 1.0
+        },
+        {
+          "criterion": "Présentation",
+          "points": 1.0
+        }
+      ]
+    }
+  ],
+  "totalMaxPoints": 20.0
+}
+

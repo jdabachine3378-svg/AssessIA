@@ -1,0 +1,46 @@
+{
+  "defaultRules": [
+    {
+      "ruleName": "Longueur minimale",
+      "ruleType": "AUTOMATIC",
+      "weight": 1.0,
+      "maxPoints": 5.0,
+      "config": {
+        "minWords": 100,
+        "pointsPerWord": 0.05
+      }
+    },
+    {
+      "ruleName": "Structure du texte",
+      "ruleType": "AUTOMATIC",
+      "weight": 1.0,
+      "maxPoints": 5.0,
+      "config": {
+        "requireParagraphs": true,
+        "requireIntroduction": true,
+        "requireConclusion": true
+      }
+    },
+    {
+      "ruleName": "Ponctuation",
+      "ruleType": "AUTOMATIC",
+      "weight": 0.8,
+      "maxPoints": 3.0,
+      "config": {
+        "checkPunctuation": true,
+        "pointsPerSentence": 0.1
+      }
+    },
+    {
+      "ruleName": "Mots-clés",
+      "ruleType": "KEYWORD_BASED",
+      "weight": 1.2,
+      "maxPoints": 7.0,
+      "config": {
+        "keywords": ["analyse", "exemple", "conclusion", "développement", "argument"],
+        "pointsPerKeyword": 1.4
+      }
+    }
+  ]
+}
+

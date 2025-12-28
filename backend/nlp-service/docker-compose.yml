@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  nlp-service:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: assessai-nlp-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - assessai-network
+    depends_on:
+      - eureka-server
+    restart: unless-stopped
+
+  eureka-server:
+    image: springcloud/eureka
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - assessai-network
+    restart: unless-stopped
+
+networks:
+  assessai-network:
+    driver: bridge
+

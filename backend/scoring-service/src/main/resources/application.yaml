@@ -1,0 +1,96 @@
+spring:
+  application:
+    name: scoring-service
+  
+  # Configuration de la base de données MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/assessiabase?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  # Configuration JPA/Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  
+  # Configuration Redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+  
+  # Configuration RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5673
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: auto
+        concurrency: 3
+        max-concurrency: 10
+        prefetch: 1
+        default-requeue-rejected: false
+
+# Configuration Eureka Client
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+
+# Configuration du serveur
+server:
+  port: 8084
+
+# Configuration Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+# Configuration des queues RabbitMQ
+rabbitmq:
+  scoring:
+    queue: scoring.queue
+    exchange: scoring.exchange
+    routingkey: scoring.routingkey
+    result:
+      queue: scoring.result.queue
+      exchange: scoring.result.exchange
+      routingkey: scoring.result.routingkey
+
+# Configuration du logging
+logging:
+  level:
+    com.assessai.scoring: DEBUG
+    org.springframework.amqp: INFO
+    org.hibernate: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

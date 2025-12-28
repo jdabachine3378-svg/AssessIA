@@ -1,0 +1,74 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: gateway
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # Route pour le service OCR
+        - id: ocr-service
+          uri: lb://ocr-service
+          predicates:
+            - Path=/ocr/**
+        
+        # Route pour le service NLP
+        - id: nlp-service
+          uri: lb://nlp-service
+          predicates:
+            - Path=/nlp/**
+        
+        # Route pour le service Scoring
+        - id: scoring-service
+          uri: lb://scoring-service
+          predicates:
+            - Path=/scoring/**
+        
+        # Route pour le service Feedback
+        - id: feedback-service
+          uri: lb://feedback-service
+          predicates:
+            - Path=/feedback/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Configuration du circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      backendService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000
+
+# Configuration Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway,routes
+  endpoint:
+    gateway:
+      access:
+        enabled: true
+    health:
+      show-details: always
+
+# Configuration JWT
+jwt:
+  secret: assessai-secret-key-for-jwt-token-generation-minimum-256-bits
